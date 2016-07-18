@@ -1,4 +1,4 @@
-package com.shishimao.demo_codec;
+package com.shishimao.CodecDemo;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.shishimao.demo_codec;
+package com.shishimao.CodecDemo;
 
 import android.Manifest;
 import android.support.v4.app.ActivityCompat;
@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 

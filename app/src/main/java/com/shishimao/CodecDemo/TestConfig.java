@@ -1,4 +1,4 @@
-package com.shishimao.demo_codec;
+package com.shishimao.CodecDemo;
 
 
 public class TestConfig {

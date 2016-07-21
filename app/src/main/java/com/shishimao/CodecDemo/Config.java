@@ -1,7 +1,7 @@
 package com.shishimao.CodecDemo;
 
 
-public class TestConfig {
+public class Config {
     //TODO
     static final String APIKEY = "";
     static final String SECRET = "";

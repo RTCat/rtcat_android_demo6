@@ -29,6 +29,7 @@ import com.shishimao.sdk.view.VideoPlayerLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     String token;
     Session session;
     String messageToken;
-    Boolean isSelect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +147,17 @@ public class MainActivity extends AppCompatActivity {
         btConnect.setEnabled(false);
 
         cat = new RTCat(this,true,true,true,false, AppRTCAudioManager.AudioDevice.SPEAKER_PHONE,codec, L.VERBOSE);
+        cat.addObserver(new RTCat.RTCatObserver() {
+            @Override
+            public void init() {
+                createLocalStream();
+            }
+        });
+
+        cat.init();
+    }
+
+    public void createLocalStream(){
         cat.initVideoPlayer(localVideoRenderer);
 
         localStream = cat.createStream(true,true,15,RTCat.VideoFormat.Lv3, LocalStream.CameraFacing.FRONT);
@@ -170,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         localStream.init();
     }
 
+
     public void createSession(View view)
     {
         new Thread(new Runnable() {
@@ -177,8 +189,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 try {
 
-                    RTCatRequests requests = new RTCatRequests(TestConfig.APIKEY, TestConfig.SECRET);
-                    token = requests.getToken(TestConfig.P2P_SESSION, "pub");
+                    RTCatRequests requests = new RTCatRequests(Config.APIKEY, Config.SECRET);
+                    token = requests.getToken(Config.P2P_SESSION, "pub");
                     l("token is " + token);
                     session = cat.createSession(token, Session.SessionType.P2P);
 
@@ -243,6 +255,11 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
 
+                                    @Override
+                                    public void file(File file) {
+
+                                    }
+
 
                                     @Override
                                     public void error(Errors errors) {
@@ -291,6 +308,16 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void log(JSONObject object) {
                                     Log.d("Sender Log ->",object.toString());
+                                }
+
+                                @Override
+                                public void fileSending(int i) {
+
+                                }
+
+                                @Override
+                                public void fileFinished() {
+
                                 }
 
                                 @Override
